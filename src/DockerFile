@@ -1,0 +1,14 @@
+# Use the official Nginx image as a base
+FROM nginx:alpine
+
+# Remove default Nginx config
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy custom Nginx config to handle SPA routing and serve from mounted GCS
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose port 80 (Nginx default)
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
